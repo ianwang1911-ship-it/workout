@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>一周训练计划</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="训练计划">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#111111">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f6f4ef;--card:#fff;--border:#e6e2d8;--text:#1a1a18;--muted:#8a8880;
+  --run:#e04a10;--str:#1a46e0;--core:#8010e0;--leg:#158040;--full:#b87010;
+}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans SC',sans-serif;padding-bottom:60px}
+.hero{background:#111;color:#fff;padding:32px 20px 38px;border-radius:0 0 24px 24px;margin-bottom:18px}
+.hero-tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:#f0c040;margin-bottom:8px}
+.hero h1{font-size:28px;font-weight:900;line-height:1.2}
+.hero p{margin-top:8px;color:#888;font-size:12px;line-height:1.9}
+.tabs{display:flex;gap:5px;padding:0 16px;overflow-x:auto;scrollbar-width:none;margin-bottom:14px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex-shrink:0;padding:8px 12px;border-radius:10px;border:1.5px solid var(--border);background:var(--card);cursor:pointer;text-align:center;min-width:54px}
+.tab .d{font-family:'DM Mono',monospace;font-size:11px;font-weight:500}
+.tab .t{font-size:9px;color:var(--muted);margin-top:2px}
+.tab.s-run{background:var(--run);border-color:var(--run);color:#fff}.tab.s-run .t{color:rgba(255,255,255,.65)}
+.tab.s-str{background:var(--str);border-color:var(--str);color:#fff}.tab.s-str .t{color:rgba(255,255,255,.65)}
+.tab.s-rest{background:#333;border-color:#333;color:#fff}.tab.s-rest .t{color:rgba(255,255,255,.6)}
+.panel{display:none;padding:0 16px}.panel.on{display:block}
+.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.ph h2{font-size:20px;font-weight:900}
+.bdg{padding:5px 12px;border-radius:20px;font-size:11px;font-family:'DM Mono',monospace}
+.br{background:#fff0ea;color:var(--run)}.bs{background:#eaefff;color:var(--str)}
+.bl{background:#eafff0;color:var(--leg)}.bf{background:#fff5e5;color:var(--full)}
+.bc{background:#f5eaff;color:var(--core)}.bx{background:#f0f0f0;color:var(--muted)}
+.exl{display:flex;flex-direction:column;gap:10px}
+.ex{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:12px;display:flex;gap:12px;align-items:center}
+.fig{width:82px;height:82px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.fs{background:#eaefff}.fc{background:#f5eaff}.fl{background:#eafff0}.ff{background:#fff5e5}
+.ei{flex:1}.ei h4{font-size:14px;font-weight:700;margin-bottom:3px}
+.ei .s{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)}
+.ei .tip{font-size:11px;color:#aaa;margin-top:4px;line-height:1.55}
+.mu{font-size:10px;padding:3px 8px;border-radius:6px;align-self:flex-start;flex-shrink:0}
+.mc{background:#f5eaff;color:var(--core)}.ms{background:#eaefff;color:var(--str)}
+.ml{background:#eafff0;color:var(--leg)}.mf{background:#fff5e5;color:var(--full)}
+.sec{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin:16px 0 10px}
+.rh{border-radius:16px;padding:18px;margin-bottom:12px;color:#fff}
+.rs{display:flex;gap:22px;margin-top:14px}
+.rv .v{font-family:'DM Mono',monospace;font-size:24px;font-weight:500}
+.rv .l{font-size:11px;opacity:.7;margin-top:2px}
+.phases{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.phase{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px}
+.pi{font-size:22px;flex-shrink:0}
+.pn strong{font-size:14px;display:block;margin-bottom:2px}
+.pn span{font-size:12px;color:var(--muted);line-height:1.5}
+.pk{font-family:'DM Mono',monospace;font-size:14px;font-weight:500;flex-shrink:0}
+.pw{background:var(--bg);border-radius:12px;padding:12px 14px;margin-bottom:12px}
+.pw h4{font-size:12px;font-weight:600;margin-bottom:10px}
+.pr{margin-bottom:8px}.pr:last-child{margin-bottom:0}
+.pl{display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px}
+.pl span:last-child{font-family:'DM Mono',monospace;color:var(--muted)}
+.pt{height:7px;background:#e0ddd6;border-radius:4px;overflow:hidden}
+.pf{height:100%;border-radius:4px}
+.note{background:#fff8f5;border:1.5px solid #ffd5c0;border-radius:10px;padding:10px 14px;font-size:12px;color:#c03a10;line-height:1.8;margin-top:10px}
+.rb{background:var(--card);border:1.5px solid var(--border);border-radius:16px;padding:24px 18px;text-align:center}
+.rb .ico{font-size:48px;margin-bottom:12px}
+.rb h3{font-size:17px;font-weight:800;margin-bottom:6px}
+.rb p{color:var(--muted);font-size:13px;line-height:1.8}
+.ris{margin-top:14px;display:flex;flex-direction:column;gap:7px;text-align:left}
+.ri{background:var(--bg);border-radius:9px;padding:9px 12px;font-size:12px;line-height:1.7}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tag">WEEKLY TRAINING</div>
+  <h1>一周训练计划</h1>
+  <p>2次有氧 · 3次力量 · 2天休息<br>腿部方向：线条为主，弓步单腿为主</p>
+</div>
+
+<div class="tabs">
+  <div class="tab s-str" onclick="sw('mon',this)"><div class="d">MON</div><div class="t">力量A</div></div>
+  <div class="tab" onclick="sw('tue',this)"><div class="d">TUE</div><div class="t">节奏跑</div></div>
+  <div class="tab" onclick="sw('wed',this)"><div class="d">WED</div><div class="t">休息</div></div>
+  <div class="tab" onclick="sw('thu',this)"><div class="d">THU</div><div class="t">力量B</div></div>
+  <div class="tab" onclick="sw('fri',this)"><div class="d">FRI</div><div class="t">慢跑</div></div>
+  <div class="tab" onclick="sw('sat',this)"><div class="d">SAT</div><div class="t">力量C</div></div>
+  <div class="tab" onclick="sw('sun',this)"><div class="d">SUN</div><div class="t">休息</div></div>
+</div>
+
+<!-- ===== MON ===== -->
+<div class="panel on" id="p-mon">
+  <div class="ph"><h2>周一 · 力量A</h2><div class="bdg bs">上肢推拉 + 核心</div></div>
+  <div class="exl">
+
+    <!-- 高位俯卧撑: 面朝右，脚在左搭凳(高)，手在右撑地(低) -->
+    <div class="ex">
+      <div class="fig fs">
+        <svg width="82" height="82" viewBox="0 0 82 82">
+          <!-- 凳子在左侧（高）-->
+          <rect x="2" y="28" width="20" height="10" rx="3" fill="#c8d4ff"/>
+          <line x1="6" y1="38" x2="6" y2="52" stroke="#a0aee0" stroke-width="2"/>
+          <line x1="18" y1="38" x2="18" y2="52" stroke="#a0aee0" stroke-width="2"/>
+          <!-- 脚在凳上（左，高） -->
+          <ellipse cx="8" cy="28" rx="5" ry="3" fill="#f5c090"/>
+          <ellipse cx="16" cy="28" rx="5" ry="3" fill="#f5c090"/>
+          <!-- 身体从左高到右低 -->
+          <line x1="12" y1="32" x2="62" y2="50" stroke="#3050d0" stroke-width="6" stroke-linecap="round"/>
+          <!-- 头在右（低） -->
+          <circle cx="70" cy="44" r="9" fill="#f5c090"/>
+          <circle cx="67" cy="42" r="2.5" fill="#3a2010"/><!-- 眼睛朝左 -->
+          <path d="M66 48 Q69 51 72 48" stroke="#c08050" stroke-width="1.3" fill="none"/>
+          <!-- 手在右下撑地 -->
+          <line x1="58" y1="50" x2="56" y2="64" stroke="#3050d0" stroke-width="4" stroke-linecap="round"/>
+          <line x1="64" y1="52" x2="62" y2="66" stroke="#3050d0" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="55" cy="66" r="5" fill="#f5c090"/>
+          <circle cx="62" cy="68" r="5" fill="#f5c090"/>
+          <text x="2" y="78" font-size="7.5" fill="#3050d0" font-family="DM Mono,monospace">脚高(左)手低(右)</text>
+        </svg>
+      </div>
+      <div class="ei">
+        <h4>高位俯卧撑</h4>
+        <div class="s">4组 × 15次</div>
+        <div class="tip">脚放凳/床沿(高)，手撑地(低)，身体斜向下。慢下2秒再推起</div>
+      </div>
+      <div class="mu ms">上胸</div>
+    </div>
+
+    <!-- 窄距俯卧撑: 面朝右，头在右，手在右下靠拢撑地，脚在左 -->
+    <div class="ex">
+      <div class="fig fs">
+        <svg width="82" height="82" viewBox="0 0 82 82">
+          <!-- 脚在左 -->
+          <circle cx="8" cy="38" r="4" fill="#f5c090"/>
+          <circle cx="2" cy="37" r="4" fill="#f5c090"/>
+          <!-- 身体水平 -->
+          <line x1="6" y1="38" x2="68" y2="36" stroke="#3050d0" stroke-width="6" stroke-linecap="round"/>
+          <!-- 头在右 -->
+          <circle cx="72" cy="30" r="9" fill="#f5c090"/>
+          <circle cx="69" cy="28" r="2.5" fill="#3a2010"/>
+          <path d="M68 34 Q71 37 74 34" stroke="#c08050" stroke-width="1.3" fill="none"/>
+          <!-- 手在右下，靠近头一侧，窄距 -->
+          <line x1="60" y1="36" x2="58" y2="50" stroke="#3050d0" stroke-width="4" stroke-linecap="round"/>
+          <line x1="68" y1="36" x2="66" y2="50" stroke="#3050d0" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="57" cy="52" r="5" fill="#f5c090"/>
+          <circle cx="66" cy="52" r="5" fill="#f5c090"/>
+          <!-- 菱形 -->
+          <path d="M57 48 L61 44 L66 47 L62 51 Z" fill="none" stroke="#3050d0" stroke-width="1.2" opacity="0.55"/>
+          <text x="8" y="72" font-size="7.5" fill="#3050d0" font-family="DM Mono,monospace">手靠拢 三头</text>
+        </svg>
+      </div>
+      <div class="ei">
+        <h4>窄距俯卧撑</h4>
+        <div class="s">3组 × 12次</div>
+        <div class="tip">双手间距一拳，手在胸口正下方，感受三头肌收缩</div>
+      </div>
+      <div class="mu ms">三头</div>
+    </div>
+
+    <!-- 反向划船: 面朝右，头在右，桌在上，手向上抓，脚在左 -->
+    <div class="ex">
+      <div class="fig fs">
+        <svg width="82" height="82" viewBox="0 0 82 82">
+          <!-- 桌子 -->
+          <rect x="4" y="10" width="74" height="8" rx="4" fill="#c8d4ff"/>
+          <line x1="12" y1="18" x2="12" y2="32" stroke="#a0aee0" stroke-width="3"/>
+          <line x1="70" y1="18" x2="70" y2="32" stroke="#a0aee0" stroke-width="3"/>
+          <!-- 头在右，桌下 -->
+          <circle cx="70" cy="46" r="9" fill="#f5c090"/>
+          <circle cx="67" cy="44" r="2.5" fill="#3a2010"/>
+          <path d="M66 50 Q69 53 72 50" stroke="#c08050" stroke-width="1.3" fill="none"/>
+          <!-- 身体水平悬在桌下 -->
+          <line x1="8" y1="48" x2="64" y2="48" stroke="#3050d0" stroke-width="6" stroke-linecap="round"/>
+          <!-- 手（右侧，靠近头）向上抓桌 -->
+          <line x1="56" y1="48" x2="54" y2="18" stroke="#3050d0" stroke-width="4" stroke-linecap="round"/>
+          <line x1="64" y1="48" x2="62" y2="18" stroke="#3050d0" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="53" cy="17" r="5" fill="#f5c090"/>
+          <circle cx="62" cy="17" r="5" fill="#f5c090"/>
+          <!-- 脚在左 -->
+          <ellipse cx="6" cy="50" rx="5" ry="3" fill="#f5c090"/>
+          <!-- 上拉箭头 -->
+          <line x1="59" y1="44" x2="59" y2="28" stroke="#3050d0" stroke-width="1.5" stroke-dasharray="2,2"/>
+          <polygon points="56,30 62,30 59,24" fill="#3050d0"/>
+          <text x="2" y="72" font-size="7.5" fill="#3050d0" font-family="DM Mono,monospace">手抓桌 背发力</text>
+        </svg>
+      </div>
+      <div class="ei">
+        <h4>反向划船</h4>
+        <div class="s">4组 × 10次</div>
+        <div class="tip">躺桌下双手抓桌沿，拉起身体靠近桌面，背和腰发力</div>
+      </div>
+      <div class="mu ms">背 / 腰</div>
+    </div>
+
+    <!-- 侧平板髋下沉: 头在右上，肘在左下撑地 -->
+    <div class="ex">
+      <div class="fig fc">
+        <svg width="82" height="82" viewBox="0 0 82 82">
+          <line x1="2" y1="72" x2="80" y2="72" stroke="#ddd" stroke-width="2"/>
+          <!-- 身体斜线，左下到右上 -->
+          <line x1="12" y1="60" x2="68" y2="24" stroke="#8010d8" stroke-width="6" stroke-linecap="round"/>
+          <!-- 头在右上 -->
+          <circle cx="72" cy="20" r="9" fill="#f5c090"/>
+          <circle cx="69" cy="18" r="2.5" fill="#3a2010"/>
+          <path d="M68 24 Q71 27 74 24" stroke="#c08050" stroke-width="1.3" fill="none"/>
+          <!-- 肘在左下撑地 -->
+          <circle cx="12" cy="65" r="6" fill="#f5c090"/>
+          <ellipse cx="12" cy="60" rx="8" ry="5" fill="#8010d8" opacity="0.15"/>
+          <!-- 上臂（右侧）向上伸 -->
+          <line x1="44" y1="40" x2="46" y2="24" stroke="#8010d8" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="46" cy="22" r="4" fill="#f5c090"/>
+          <!-- 脚在左下 -->
+          <ellipse cx="8" cy="63" rx="6" ry="3" fill="#f5c090"/>
+          <!-- 髋下沉箭头 -->
+          <path d="M32 52 Q24 60 28 68" stroke="#c040f0" fill="none" stroke-width="2" stroke-dasharray="3,2"/>
+          <polygon points="26,66 30,70 32,64" fill="#c040f0"/>
+          <text x="2" y="80" font-size="7.5" fill="#8010d8" font-family="DM Mono,monospace">肘撑地 髋下沉</text>
+        </svg>
+      </div>
+      <div class="ei">
+        <h4>侧平板 + 髋下沉</h4>
+        <div class="s">3组 × 10次 / 侧</div>
+        <div class="tip">肘撑地侧卧，髋缓慢下沉再抬起，侧腰主动收缩</div>
+      </div>
+      <div class="mu mc">侧腰</div>
+    </div>
+
+    <!-- 空心收腹: 仰卧，头在右，手脚离地 -->
+    <div class="ex">
+      <div class="fig fc">
+        <svg width="82" height="82" viewBox="0 0 82 82">
+          <line x1="2" y1="74" x2="80" y2="74" stroke="#ddd" stroke-width="2"/>
+          <!-- 头在右 -->
+          <circle cx="72" cy="50" r="9" fill="#f5c090"/>
+          <circle cx="69" cy="48" r="2.5" fill="#3a2010"/>
+          <path d="M68 54 Q71 57 74 54" stroke="#c08050" stroke-width="1.3" fill="none"/>
+          <!-- 躯干（弓形，下背贴地）-->
+          <path d="M14 58 Q42 42 66 56" stroke="#8010d8" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <!-- 双手向右上举（同侧头）-->
+          <line x1="64" y1="52" x2="74" y2="36" stroke="#8010d8" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="74" cy="34" r="4" fill="#f5c090"/>
+          <line x1="60" y1="53" x2="68" y2="37" stroke="#8010d8" stroke-width="3" stroke-linecap="round"/>
+          <!-- 双腿向左上抬 -->
+          <line x1="16" y1="58" x2="6" y2="42" stroke="#8010d8" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="5" cy="40" r="4" fill="#f5c090"/>
+          <line x1="22" y1="57" x2="12" y2="41" stroke="#8010d8" stroke-width="3" stroke-linecap="round"/>
+          <text x="14" y="80" font-size="7.5" fill="#8010d8" font-family="DM Mono,monospace">下背贴地</text>
+        </svg>
+      </div>
+      <div class="ei">
+        <h4>空心收腹</h4>
+        <div class="s">3组 × 30秒</div>
+        <div class="tip">仰卧，手脚同时离地，下背全程贴地，呼气时收腹</div>
+      </div>
+      <div class="mu mc">下腹</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== TUE 节奏跑 ===== -->
+<div class="panel" id="p-tue">
+  <div class="ph"><h2>周二 · 节奏跑</h2><div class="bdg br">有氧提速日</div></div>
+  <div class="rh" style="background:var(--run)">
+    <svg width="100%" height="76" viewBox="0 0 300 76">
+      <circle cx="200" cy="14" r="10" fill="#f5c090"/>
+      <circle cx="204" cy="11" r="3" fill="#3a2010"/>
+      <path d="M196 18 Q200 22 204 18" stroke="#c08050" stroke-width="1.5" fill="none"/>
+      <line x1="200" y1="24" x2="196" y2="42" stroke="rgba(255,255,255,.9)" stroke-width="5" stroke-linecap="round"/>
+      <line x1="198" y1="30" x2="184" y2="22" stroke="rgba(255,255,255,.9)" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="182" cy="21" r="4" fill="#f5c090"/>
+      <line x1="198" y1="30" x2="214" y2="40" stroke="rgba(255,255,255,.9)" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="215" cy="41" r="4" fill="#f5c090"/>
+      <line x1="196" y1="42" x2="182" y2="56" stroke="rgba(255,255,255,.9)" stroke-width="5" stroke-linecap="round"/>
+      <line x1="182" y1="56" x2="176" y2="70" stroke="rgba(255,255,255,.85)" stroke-width="4" stroke-linecap="round"/>
+      <ellipse cx="172" cy="72" rx="7" ry="3.5" fill="#f5c090"/>
+      <line x1="196" y1="42" x2="210" y2="54" stroke="rgba(255,255,255,.9)" stroke-width="5" stroke-linecap="round"/>
+      <line x1="210" y1="54" x2="218" y2="66" stroke="rgba(255,255,255,.85)" stroke-width="4" stroke-linecap="round"/>
+      <ellipse cx="221" cy="68" rx="7" ry="3.5" fill="#f5c090"/>
+      <line x1="164" y1="28" x2="144" y2="28" stroke="rgba(255,255,255,.5)" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="162" y1="38" x2="138" y2="38" stroke="rgba(255,255,255,.3)" stroke-width="2" stroke-linecap="round"/>
+      <text x="8" y="28" fill="white" font-size="22" font-family="DM Mono,monospace" font-weight="500">5:05</text>
+      <text x="8" y="44" fill="rgba(255,255,255,.65)" font-size="10" font-family="DM Mono,monospace">/km 目标配速</text>
+      <text x="238" y="28" fill="white" font-size="22" font-family="DM Mono,monospace" font-weight="500">6km</text>
+      <text x="238" y="44" fill="rgba(255,255,255,.65)" font-size="10" font-family="DM Mono,monospace">总距离</text>
+    </svg>
+    <div class="rs">
+      <div class="rv"><div class="v">~35'</div><div class="l">预计时长</div></div>
+      <div class="rv"><div class="v">5:05</div><div class="l">目标配速</div></div>
+      <div class="rv"><div class="v">6km</div><div class="l">总距离</div></div>
+    </div>
+  </div>
+  <div class="pw">
+    <h4>配速区间</h4>
+    <div class="pr"><div class="pl"><span>热身慢跑</span><span>6:00/km</span></div><div class="pt"><div class="pf" style="width:44%;background:#ffa070"></div></div></div>
+    <div class="pr"><div class="pl"><span>节奏跑主体</span><span style="color:var(--run)">5:05/km</span></div><div class="pt"><div class="pf" style="width:78%;background:var(--run)"></div></div></div>
+    <div class="pr"><div class="pl"><span>放松收尾</span><span>6:30/km</span></div><div class="pt"><div class="pf" style="width:36%;background:#ffa070"></div></div></div>
+  </div>
+  <div class="sec">跑步分段</div>
+  <div class="phases">
+    <div class="phase"><div class="pi">🚶</div><div class="pn"><strong>热身慢跑</strong><span>6:00/km · 关节激活</span></div><div class="pk" style="color:var(--run)">1km</div></div>
+    <div class="phase"><div class="pi">🏃</div><div class="pn"><strong>节奏跑主体</strong><span>5:05/km · 能说短句不能聊天</span></div><div class="pk" style="color:var(--run)">4km</div></div>
+    <div class="phase"><div class="pi">🧘</div><div class="pn"><strong>放松收尾</strong><span>6:30/km · 心率下降 · 不要突然停</span></div><div class="pk" style="color:var(--run)">1km</div></div>
+  </div>
+  <div class="sec">跑后核心（15分钟）</div>
+  <div class="exl">
+    <div class="ex">
+      <div class="fig fc">
+        <svg width="82" height="82" viewBox="0 0 82 82">
+          <line x1="2" y1="74" x2="80" y2="74" stroke="#ddd" stroke-width="2"/>
+          <circle cx="72" cy="50" r="9" fill="#f5c090"/>
+          <circle cx="69" cy="48" r="2.5" fill="#3a2010"/>
+          <path d="M14 58 Q42 42 66 56" stroke="#8010d8" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <line x1="64" y1="52" x2="74" y2="36" stroke="#8010d8" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="74" cy="34" r="4" fill="#f5c090"/>
+          <line x1="16" y1="58" x2="6" y2="42" stroke="#8010d8" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="5" cy="40" r="4" fill="#f5c090"/>
+          <text x="14" y="80" font-size="7.5" fill="#8010d8" font-family="DM Mono,monospace">下背贴地</text>
+        </svg>
+      </div>
+      <div class="ei"><h4>空心收腹</h4><div class="s">2组 × 30秒</div><div class="tip">跑后激活深层核心</div></div>
+      <div class="mu mc">下腹</div>
+    </div>
+    <div class="ex">
+      <div class="fig fc">
+        <svg width="82" height="82" viewBox="0 0 82 82">
+          <line x1="2" y1="72" x2="80" y2="72" stroke="#ddd" stroke-width="2"/>
+          <line x1="12" y1="60" x2="68" y2="24" stroke="#8010d8" stroke-width="6" stroke-linecap="round"/>
+          <circle cx="72" cy="20" r="9" fill="#f5c090"/>
+          <circle cx="69" cy="18" r="2.5" fill="#3a2010"/>
+          <circle cx="12" cy="65" r="6" fill="#f5c090"/>
+          <line x1="44" y1="40" x2="46" y2="24" stroke="#8010d8" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="46" cy="22" r="4" fill="#f5c090"/>
+          <ellipse cx="8" cy="63" rx="6" ry="3" fill="#f5c090"/>
+          <text x="2" y="80" font-size="7.5" fill="#8010d8" font-family="DM Mono,monospace">侧撑30秒</text>
+        </svg>
+      </div>
+      <div class="ei"><h4>侧平板静态</h4><div class="s">2组 × 30秒 / 侧</div><div class="tip">静态保持，侧腰收紧</div></div>
+      <div class="mu mc">侧腰</div>
+    </div>
+  </div>
+  <div class="note">⏰ 不要睡前2小时内跑 · 跑后慢走5分钟 · 吃点香蕉补糖</div>
+</div>
+
+<!-- ===== WED 休息 ===== -->
+<div class="panel" id="p-wed">
+  <div class="ph"><h2>周三 · 主动恢复</h2><div class="bdg bx">低强度</div></div>
+  <div class="rb">
+    <div class="ico">🌿</div><h3>今天不训练</h3>
+    <p>肌肉在休息时修复生长，<br>这一天和训练日同样重要。</p>
+    <div class="ris">
+      <div class="ri">🚶 散步20–30分钟</div>
+      <div class="ri">🧘 拉伸10分钟：腘绳肌、髋屈肌、肩颈</div>
+      <div class="ri">💧 多喝水，保证7小时睡眠</div>
+      <div class="ri">🍳 蛋白质正常，主食减半</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== THU 力量B ===== -->
+<div class="panel" id="p-thu">
+  <div class="ph"><h2>周四 · 力量B</h2><div class="bdg bl">下肢线条 + 核心</div></div>
+  <div class="exl">
+
+    <!-- 弓步走: 头在左，前腿在左弯曲，后腿在右 -->
+    <div class="ex">
+      <div class="fig fl">
+        <svg width="82" height="82" viewBox="0 0 82 82">
+          <line x1="2" y1="74" x2="80" y2="74" stroke="#ddd" stroke-width="2"/>
+          <!-- 头在左 -->
+          <circle cx="28" cy="8" r="9" fill="#f5c090"/>
+          <circle cx="31" cy="6" r="2.5" fill="#3a2010"/>
+          <path d="M26 12 Q29 15 32 12" stroke="#c08050" stroke-width="1.3" fill="none"/>
+          <!-- 躯干 -->
+          <line x1="28" y1="17" x2="30" y2="36" stroke="#158040" stroke-width="5" stroke-linecap="round"/>
+          <!-- 手臂 -->
+          <line x1="30" y1="26" x2="16" y2="32" stroke="#158040" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="14" cy="33" r="4" fill="#f5c090"/>
+          <line x1="30" y1="26" x2="44" y2="32" stroke="#158040" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="46" cy="33" r="4" fill="#f5c090"/>
+          <!-- 前腿（左，弯曲90°）-->
+          <line x1="30" y1="36" x2="16" y2="52" stroke="#158040" stroke-width="5" stroke-linecap="round"/>
+          <line x1="16" y1="52" x2="10" y2="70" stroke="#158040" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="7" cy="72" rx="6" ry="3" fill="#f5c090"/>
+          <!-- 90°角标 -->
+          <path d="M16 52 L20 52 L20 56" fill="none" stroke="#158040" stroke-width="1.5"/>
+          <!-- 后腿（右）-->
+          <line x1="30" y1="36" x2="52" y2="50" stroke="#158040" stroke-width="5" stroke-linecap="round"/>
+          <line x1="52" y1="50" x2="56" y2="70" stroke="#158040" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="57" cy="72" rx="6" ry="3" fill="#f5c090"/>
+          <text x="4" y="80" font-size="7.5" fill="#158040" font-family="DM Mono,monospace">前膝90° 步行</text>
+        </svg>
+      </div>
+      <div class="ei">
+        <h4>弓步走</h4>
+        <div class="s">3组 × 12步 / 腿</div>
+        <div class="tip">向前迈大步，前膝90°不超脚尖，后膝接近地面，交替前进</div>
+      </div>
+      <div class="mu ml">腿线条 / 臀</div>
+    </div>
+
+    <!-- 保加利亚分腿蹲: 头在左，前腿左弯曲，后脚搭右侧椅 -->
+    <div class="ex">
+      <div class="fig fl">
+        <svg width="82" height="82" viewBox="0 0 82 82">
+          <line x1="2" y1="74" x2="80" y2="74" stroke="#ddd" stroke-width="2"/>
+          <!-- 椅子在右 -->
+          <rect x="56" y="44" width="22" height="10" rx="3" fill="#b0e8b8"/>
+          <line x1="60" y1="54" x2="60" y2="66" stroke="#90c890" stroke-width="2"/>
+          <line x1="74" y1="54" x2="74" y2="66" stroke="#90c890" stroke-width="2"/>
+          <!-- 头在左 -->
+          <circle cx="26" cy="7" r="9" fill="#f5c090"/>
+          <circle cx="29" cy="5" r="2.5" fill="#3a2010"/>
+          <path d="M24 11 Q27 14 30 11" stroke="#c08050" stroke-width="1.3" fill="none"/>
+          <!-- 躯干 -->
+          <line x1="26" y1="16" x2="28" y2="36" stroke="#158040" stroke-width="5" stroke-linecap="round"/>
+          <!-- 手 -->
+          <circle cx="14" cy="36" r="4" fill="#f5c090"/>
+          <circle cx="42" cy="36" r="4" fill="#f5c090"/>
+          <!-- 前腿（左弯曲）-->
+          <line x1="28" y1="36" x2="14" y2="54" stroke="#158040" stroke-width="5" stroke-linecap="round"/>
+          <line x1="14" y1="54" x2="8" y2="70" stroke="#158040" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="5" cy="72" rx="6" ry="3" fill="#f5c090"/>
+          <!-- 후腿（右，搭椅）-->
+          <line x1="28" y1="36" x2="62" y2="44" stroke="#158040" stroke-width="5" stroke-linecap="round"/>
+          <ellipse cx="64" cy="44" rx="6" ry="3.5" fill="#f5c090"/>
+          <text x="2" y="80" font-size="7.5" fill="#158040" font-family="DM Mono,monospace">后脚搭椅</text>
+        </svg>
+      </div>
+      <div class="ei">
+        <h4>保加利亚分腿蹲</h4>
+        <div class="s">3组 × 10次 / 腿</div>
+        <div class="tip">后脚搭椅，前膝不超脚尖，臀腿发力，腿不易变粗</div>
+      </div>
+      <div class="mu ml">臀 / 腿</div>
+    </div>
+
+    <!-- 单腿臀桥: 头在右，脚在右支撑，一腿抬起 -->
+    <div class="ex">
+      <div class="fig fl">
+        <svg width="82" height="82" viewBox="0 0 82 82">
+          <line x1="2" y1="74" x2="80" y2="74" stroke="#ddd" stroke-width="2"/>
+          <!-- 头在右 -->
+          <circle cx="70" cy="56" r="9" fill="#f5c090"/>
+          <circle cx="67" cy="54" r="2.5" fill="#3a2010"/>
+          <!-- 身体抬起（右高左低）-->
+          <line x1="14" y1="56" x2="62" y2="54" stroke="#158040" stroke-width="6" stroke-linecap="round"/>
+          <!-- 支撑腿（右，弯曲踩地）-->
+          <line x1="52" y1="54" x2="60" y2="36" stroke="#158040" stroke-width="5" stroke-linecap="round"/>
+          <line x1="60" y1="36" x2="68" y2="54" stroke="#158040" stroke-width="5" stroke-linecap="round"/>
+          <ellipse cx="70" cy="56" rx="6" ry="3" fill="#f5c090"/>
+          <!-- 抬起腿（向左上伸直）-->
+          <line x1="52" y1="54" x2="34" y2="36" stroke="#158040" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="32" cy="34" r="4" fill="#f5c090"/>
+          <!-- 臀部发光 -->
+          <circle cx="52" cy="52" r="8" fill="#158040" opacity="0.18"/>
+          <!-- 箭头 -->
+          <line x1="34" y1="54" x2="34" y2="38" stroke="#158040" stroke-width="1.5" stroke-dasharray="2,2"/>
+          <polygon points="31,40 37,40 34,34" fill="#158040"/>
+          <text x="2" y="80" font-size="7.5" fill="#158040" font-family="DM Mono,monospace">臀顶峰夹紧1s</text>
+        </svg>
+      </div>
+      <div class="ei">
+        <h4>单腿臀桥</h4>
+        <div class="s">3组 × 12次 / 腿</div>
+        <div class="tip">顶峰夹紧1秒，臀大肌主动收缩，不用腰代偿</div>
+      </div>
+      <div class="mu ml">臀</div>
+    </div>
+
+    <!-- 侧卧抬腿: 头在右，身体侧卧，上腿抬起 -->
+    <div class="ex">
+      <div class="fig fl">
+        <svg width="82" height="82" viewBox="0 0 82 82">
+          <line x1="2" y1="74" x2="80" y2="74" stroke="#ddd" stroke-width="2"/>
+          <!-- 头在右 -->
+          <circle cx="70" cy="46" r="9" fill="#f5c090"/>
+          <circle cx="67" cy="44" r="2.5" fill="#3a2010"/>
+          <!-- 躯干侧卧（水平）-->
+          <line x1="10" y1="58" x2="64" y2="58" stroke="#158040" stroke-width="6" stroke-linecap="round"/>
+          <!-- 下腿贴地（向左）-->
+          <line x1="12" y1="58" x2="4" y2="70" stroke="#158040" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="3" cy="72" rx="5" ry="2.5" fill="#f5c090"/>
+          <!-- 上腿抬起（向左上）-->
+          <line x1="18" y1="58" x2="6" y2="40" stroke="#158040" stroke-width="5" stroke-linecap="round"/>
+          <ellipse cx="5" cy="38" rx="5" ry="3" fill="#f5c090"/>
+          <!-- 手臂撑头（右侧）-->
+          <line x1="64" y1="58" x2="72" y2="44" stroke="#158040" stroke-width="3" stroke-linecap="round"/>
+          <!-- 抬腿箭头 -->
+          <path d="M16 56 L8 42" stroke="#158040" stroke-width="1.5" stroke-dasharray="2,2"/>
+          <polygon points="6,44 10,40 12,46" fill="#158040"/>
+          <text x="18" y="80" font-size="7.5" fill="#158040" font-family="DM Mono,monospace">腿外侧发力</text>
+        </svg>
+      </div>
+      <div class="ei">
+        <h4>侧卧抬腿</h4>
+        <div class="s">3组 × 15次 / 侧</div>
+        <div class="tip">侧卧，上腿缓慢抬起，感受大腿外侧和臀中肌</div>
+      </div>
+      <div class="mu ml">腿外侧 / 臀中</div>
+    </div>
+
+    <!-- 死虫式: 头在右，仰卧，对角伸展 -->
+    <div class="ex">
+      <div class="fig fc">
+        <svg width="82" height="82" viewBox="0 0 82 82">
+          <line x1="2" y1="74" x2="80" y2="74" stroke="#ddd" stroke-width="2"/>
+          <!-- 头在右 -->
+          <circle cx="72" cy="52" r="9" fill="#f5c090"/>
+          <circle cx="69" cy="50" r="2.5" fill="#3a2010"/>
+          <!-- 躯干 -->
+          <line x1="12" y1="56" x2="64" y2="56" stroke="#8010d8" stroke-width="6" stroke-linecap="round"/>
+          <!-- 右臂向右上伸（同侧头）-->
+          <line x1="58" y1="56" x2="68" y2="38" stroke="#8010d8" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="69" cy="36" r="4" fill="#f5c090"/>
+          <!-- 左腿向左下伸 -->
+          <line x1="16" y1="56" x2="6" y2="70" stroke="#8010d8" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="4" cy="72" rx="5" ry="3" fill="#f5c090"/>
+          <!-- 左臂弯（虚线）-->
+          <line x1="46" y1="56" x2="38" y2="38" stroke="#c040f0" stroke-width="3" stroke-dasharray="4,2" opacity="0.4" stroke-linecap="round"/>
+          <!-- 右腿弯（虚线）-->
+          <line x1="28" y1="56" x2="36" y2="70" stroke="#c040f0" stroke-width="3" stroke-dasharray="4,2" opacity="0.4" stroke-linecap="round"/>
+          <text x="8" y="80" font-size="7.5" fill="#8010d8" font-family="DM Mono,monospace">对角同时伸</text>
+        </svg>
+      </div>
+      <div class="ei">
+        <h4>死虫式</h4>
+        <div class="s">3组 × 10次 / 侧</div>
+        <div class="tip">下背贴地，右臂左腿同时缓慢伸出，深层核心稳定</div>
+      </div>
+      <div class="mu mc">深层核心</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== FRI 慢跑 ===== -->
+<div class="panel" id="p-fri">
+  <div class="ph"><h2>周五 · 有氧慢跑</h2><div class="bdg br">有氧耐力日</div></div>
+  <div class="rh" style="background:#b03010">
+    <svg width="100%" height="76" viewBox="0 0 300 76">
+      <circle cx="200" cy="14" r="10" fill="#f5c090"/>
+      <circle cx="203" cy="11" r="3" fill="#3a2010"/>
+      <path d="M197 18 Q201 22 205 18" stroke="#c08050" stroke-width="1.5" fill="none"/>
+      <line x1="200" y1="24" x2="198" y2="43" stroke="rgba(255,255,255,.9)" stroke-width="5" stroke-linecap="round"/>
+      <line x1="199" y1="31" x2="186" y2="24" stroke="rgba(255,255,255,.9)" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="184" cy="23" r="4" fill="#f5c090"/>
+      <line x1="199" y1="31" x2="213" y2="40" stroke="rgba(255,255,255,.9)" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="214" cy="41" r="4" fill="#f5c090"/>
+      <line x1="198" y1="43" x2="187" y2="57" stroke="rgba(255,255,255,.9)" stroke-width="5" stroke-linecap="round"/>
+      <line x1="187" y1="57" x2="183" y2="70" stroke="rgba(255,255,255,.85)" stroke-width="4" stroke-linecap="round"/>
+      <ellipse cx="180" cy="72" rx="7" ry="3.5" fill="#f5c090"/>
+      <line x1="198" y1="43" x2="210" y2="56" stroke="rgba(255,255,255,.9)" stroke-width="5" stroke-linecap="round"/>
+      <line x1="210" y1="56" x2="216" y2="68" stroke="rgba(255,255,255,.85)" stroke-width="4" stroke-linecap="round"/>
+      <ellipse cx="219" cy="70" rx="7" ry="3.5" fill="#f5c090"/>
+      <line x1="165" y1="30" x2="148" y2="30" stroke="rgba(255,255,255,.3)" stroke-width="2" stroke-linecap="round"/>
+      <text x="8" y="28" fill="white" font-size="22" font-family="DM Mono,monospace" font-weight="500">6:00</text>
+      <text x="8" y="44" fill="rgba(255,255,255,.65)" font-size="10" font-family="DM Mono,monospace">/km 放松配速</text>
+      <text x="238" y="28" fill="white" font-size="22" font-family="DM Mono,monospace" font-weight="500">8km</text>
+      <text x="238" y="44" fill="rgba(255,255,255,.65)" font-size="10" font-family="DM Mono,monospace">总距离</text>
+    </svg>
+    <div class="rs">
+      <div class="rv"><div class="v">~48'</div><div class="l">预计时长</div></div>
+      <div class="rv"><div class="v">6:00</div><div class="l">目标配速</div></div>
+      <div class="rv"><div class="v">8km</div><div class="l">总距离</div></div>
+    </div>
+  </div>
+  <div class="pw">
+    <h4>配速区间</h4>
+    <div class="pr"><div class="pl"><span>热身</span><span>6:30/km</span></div><div class="pt"><div class="pf" style="width:36%;background:#e07050"></div></div></div>
+    <div class="pr"><div class="pl"><span>有氧主体</span><span style="color:#b03010">6:00/km</span></div><div class="pt"><div class="pf" style="width:58%;background:#b03010"></div></div></div>
+  </div>
+  <div class="sec">跑步分段</div>
+  <div class="phases">
+    <div class="phase"><div class="pi">🚶</div><div class="pn"><strong>热身</strong><span>6:30/km · 全身放松</span></div><div class="pk" style="color:#b03010">1km</div></div>
+    <div class="phase"><div class="pi">🏃</div><div class="pn"><strong>有氧主体</strong><span>6:00/km · 全程能正常说话</span></div><div class="pk" style="color:#b03010">6km</div></div>
+    <div class="phase"><div class="pi">🧘</div><div class="pn"><strong>放松收尾</strong><span>慢跑+步行 · 心率恢复</span></div><div class="pk" style="color:#b03010">1km</div></div>
+  </div>
+  <div class="sec">跑后核心（15分钟）</div>
+  <div class="exl">
+    <div class="ex">
+      <div class="fig fc">
+        <svg width="82" height="82" viewBox="0 0 82 82">
+          <line x1="2" y1="72" x2="80" y2="72" stroke="#ddd" stroke-width="2"/>
+          <line x1="12" y1="60" x2="68" y2="24" stroke="#8010d8" stroke-width="6" stroke-linecap="round"/>
+          <circle cx="72" cy="20" r="9" fill="#f5c090"/>
+          <circle cx="69" cy="18" r="2.5" fill="#3a2010"/>
+          <circle cx="12" cy="65" r="6" fill="#f5c090"/>
+          <line x1="44" y1="40" x2="46" y2="24" stroke="#8010d8" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="46" cy="22" r="4" fill="#f5c090"/>
+          <ellipse cx="8" cy="63" rx="6" ry="3" fill="#f5c090"/>
+          <path d="M32 52 Q24 60 28 68" stroke="#c040f0" fill="none" stroke-width="2" stroke-dasharray="3,2"/>
+          <polygon points="26,66 30,70 32,64" fill="#c040f0"/>
+          <text x="2" y="80" font-size="7.5" fill="#8010d8" font-family="DM Mono,monospace">髋下沉×10</text>
+        </svg>
+      </div>
+      <div class="ei"><h4>侧平板 + 髋下沉</h4><div class="s">2组 × 10次 / 侧</div><div class="tip">跑后收紧侧腰</div></div>
+      <div class="mu mc">侧腰</div>
+    </div>
+  </div>
+  <div class="note">💡 耐力日不追配速 · 跑完比速度重要 · 跑后补水和香蕉</div>
+</div>
+
+<!-- ===== SAT 力量C ===== -->
+<div class="panel" id="p-sat">
+  <div class="ph"><h2>周六 · 力量C</h2><div class="bdg bf">全身爆发 · 代谢消耗</div></div>
+  <div class="exl">
+
+    <!-- 波比跳: 对称正面，手上举 -->
+    <div class="ex">
+      <div class="fig ff">
+        <svg width="82" height="82" viewBox="0 0 82 82">
+          <line x1="2" y1="76" x2="80" y2="76" stroke="#ddd" stroke-width="2"/>
+          <circle cx="41" cy="8" r="9" fill="#f5c090"/>
+          <circle cx="44" cy="6" r="2.5" fill="#3a2010"/>
+          <path d="M39 12 Q42 15 45 12" stroke="#c08050" stroke-width="1.3" fill="none"/>
+          <line x1="41" y1="17" x2="41" y2="36" stroke="#b07010" stroke-width="5" stroke-linecap="round"/>
+          <!-- 双手举起（对称）-->
+          <line x1="41" y1="24" x2="24" y2="14" stroke="#b07010" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="22" cy="13" r="4" fill="#f5c090"/>
+          <line x1="41" y1="24" x2="58" y2="14" stroke="#b07010" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="60" cy="13" r="4" fill="#f5c090"/>
+          <!-- 双腿微弯对称 -->
+          <line x1="41" y1="36" x2="28" y2="54" stroke="#b07010" stroke-width="5" stroke-linecap="round"/>
+          <line x1="28" y1="54" x2="22" y2="68" stroke="#b07010" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="19" cy="70" rx="6" ry="3" fill="#f5c090"/>
+          <line x1="41" y1="36" x2="54" y2="54" stroke="#b07010" stroke-width="5" stroke-linecap="round"/>
+          <line x1="54" y1="54" x2="60" y2="68" stroke="#b07010" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="63" cy="70" rx="6" ry="3" fill="#f5c090"/>
+          <line x1="41" y1="3" x2="41" y2="-3" stroke="#b07010" stroke-width="2"/>
+          <polygon points="38,-2 44,-2 41,-7" fill="#b07010"/>
+          <text x="8" y="80" font-size="7.5" fill="#b07010" font-family="DM Mono,monospace">俯撑→跳起</text>
+        </svg>
+      </div>
+      <div class="ei">
+        <h4>波比跳</h4>
+        <div class="s">4组 × 10次</div>
+        <div class="tip">俯卧撑撑起 → 收腿 → 爆发跳起，落地膝微屈缓冲</div>
+      </div>
+      <div class="mu mf">全身</div>
+    </div>
+
+    <!-- 侧弓步: 头在左，左腿弯曲，右腿伸直向右 -->
+    <div class="ex">
+      <div class="fig fl">
+        <svg width="82" height="82" viewBox="0 0 82 82">
+          <line x1="2" y1="74" x2="80" y2="74" stroke="#ddd" stroke-width="2"/>
+          <!-- 头在左 -->
+          <circle cx="26" cy="8" r="9" fill="#f5c090"/>
+          <circle cx="29" cy="6" r="2.5" fill="#3a2010"/>
+          <path d="M24 12 Q27 15 30 12" stroke="#c08050" stroke-width="1.3" fill="none"/>
+          <!-- 躯干 -->
+          <line x1="26" y1="17" x2="28" y2="36" stroke="#158040" stroke-width="5" stroke-linecap="round"/>
+          <!-- 手臂前平 -->
+          <line x1="28" y1="26" x2="14" y2="32" stroke="#158040" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="12" cy="33" r="4" fill="#f5c090"/>
+          <line x1="28" y1="26" x2="42" y2="32" stroke="#158040" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="44" cy="33" r="4" fill="#f5c090"/>
+          <!-- 左腿弯曲（左侧）-->
+          <line x1="28" y1="36" x2="12" y2="50" stroke="#158040" stroke-width="6" stroke-linecap="round"/>
+          <line x1="12" y1="50" x2="8" y2="70" stroke="#158040" stroke-width="5" stroke-linecap="round"/>
+          <ellipse cx="5" cy="72" rx="7" ry="3" fill="#f5c090"/>
+          <!-- 右腿伸直（右侧）-->
+          <line x1="28" y1="36" x2="58" y2="46" stroke="#158040" stroke-width="5" stroke-linecap="round"/>
+          <line x1="58" y1="46" x2="64" y2="70" stroke="#158040" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="65" cy="72" rx="6" ry="3" fill="#f5c090"/>
+          <!-- 弯曲膝角标 -->
+          <path d="M12 50 L16 50 L16 54" fill="none" stroke="#158040" stroke-width="1.5"/>
+          <text x="2" y="80" font-size="7.5" fill="#158040" font-family="DM Mono,monospace">侧弓 内侧拉伸</text>
+        </svg>
+      </div>
+      <div class="ei">
+        <h4>侧弓步</h4>
+        <div class="s">3组 × 12次 / 侧</div>
+        <div class="tip">向侧面大步迈，弯曲腿膝不超脚尖，另一腿完全伸直</div>
+      </div>
+      <div class="mu ml">腿内侧 / 臀</div>
+    </div>
+
+    <!-- 平板支撑肩触: 头在右，手在右下撑地，左手抬起触右肩（对侧）-->
+    <div class="ex">
+      <div class="fig ff">
+        <svg width="82" height="82" viewBox="0 0 82 82">
+          <line x1="2" y1="74" x2="80" y2="74" stroke="#ddd" stroke-width="2"/>
+          <!-- 脚在左 -->
+          <circle cx="6" cy="42" r="4" fill="#f5c090"/>
+          <!-- 身体平板 -->
+          <line x1="8" y1="40" x2="66" y2="37" stroke="#b07010" stroke-width="6" stroke-linecap="round"/>
+          <!-- 头在右 -->
+          <circle cx="72" cy="32" r="9" fill="#f5c090"/>
+          <circle cx="69" cy="30" r="2.5" fill="#3a2010"/>
+          <!-- 右手撑地（靠近头侧）-->
+          <line x1="60" y1="37" x2="58" y2="52" stroke="#b07010" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="57" cy="54" r="5" fill="#f5c090"/>
+          <!-- 左手抬起触右肩（对侧，即靠近头的那侧肩）-->
+          <line x1="46" y1="38" x2="60" y2="30" stroke="#b07010" stroke-width="4" stroke-linecap="round"/>
+          <!-- 触肩高亮 -->
+          <circle cx="62" cy="29" r="6" fill="#f0c040" opacity="0.85"/>
+          <circle cx="62" cy="29" r="3" fill="#b07010"/>
+          <!-- 虚线弧 -->
+          <path d="M46 42 Q54 32 62 30" stroke="#b07010" fill="none" stroke-width="1.5" stroke-dasharray="3,2" opacity="0.6"/>
+          <text x="2" y="72" font-size="7.5" fill="#b07010" font-family="DM Mono,monospace">左手触右肩</text>
+        </svg>
+      </div>
+      <div class="ei">
+        <h4>平板支撑肩触</h4>
+        <div class="s">3组 × 20次</div>
+        <div class="tip">左右手交替触对侧肩，髋部保持水平不摇晃</div>
+      </div>
+      <div class="mu mc">核心</div>
+    </div>
+
+    <!-- 登山者: 头在右，手在右下撑，膝向右驱 -->
+    <div class="ex">
+      <div class="fig ff">
+        <svg width="82" height="82" viewBox="0 0 82 82">
+          <line x1="2" y1="74" x2="80" y2="74" stroke="#ddd" stroke-width="2"/>
+          <!-- 脚在左 -->
+          <ellipse cx="4" cy="56" rx="4" ry="3" fill="#f5c090" opacity="0.5"/>
+          <!-- 身体平板 -->
+          <line x1="8" y1="38" x2="66" y2="35" stroke="#b07010" stroke-width="6" stroke-linecap="round"/>
+          <!-- 头在右 -->
+          <circle cx="72" cy="30" r="9" fill="#f5c090"/>
+          <circle cx="69" cy="28" r="2.5" fill="#3a2010"/>
+          <!-- 双手撑地（右侧）-->
+          <line x1="58" y1="35" x2="56" y2="50" stroke="#b07010" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="55" cy="52" r="5" fill="#f5c090"/>
+          <line x1="66" y1="35" x2="64" y2="50" stroke="#b07010" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="63" cy="52" r="5" fill="#f5c090"/>
+          <!-- 左膝向右驱（朝头方向）-->
+          <line x1="8" y1="38" x2="30" y2="24" stroke="#b07010" stroke-width="5" stroke-linecap="round"/>
+          <line x1="30" y1="24" x2="38" y2="36" stroke="#b07010" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="39" cy="38" r="4" fill="#f5c090"/>
+          <!-- 运动弧 -->
+          <path d="M26 30 Q32 20 38 28" stroke="#f0c040" fill="none" stroke-width="2" stroke-dasharray="2,2"/>
+          <text x="4" y="70" font-size="7.5" fill="#b07010" font-family="DM Mono,monospace">膝向胸 交替</text>
+        </svg>
+      </div>
+      <div class="ei">
+        <h4>登山者</h4>
+        <div class="s">3组 × 20次</div>
+        <div class="tip">快速交替驱膝向胸，腰部不下塌</div>
+      </div>
+      <div class="mu mf">全身</div>
+    </div>
+
+    <!-- 俄罗斯转体: 头在右，双臂转向右 -->
+    <div class="ex">
+      <div class="fig fc">
+        <svg width="82" height="82" viewBox="0 0 82 82">
+          <line x1="2" y1="76" x2="80" y2="76" stroke="#ddd" stroke-width="2"/>
+          <!-- 头在右 -->
+          <circle cx="60" cy="16" r="9" fill="#f5c090"/>
+          <circle cx="57" cy="14" r="2.5" fill="#3a2010"/>
+          <path d="M56 20 Q59 23 62 20" stroke="#c08050" stroke-width="1.3" fill="none"/>
+          <!-- 躯干后倾 -->
+          <line x1="42" y1="56" x2="58" y2="24" stroke="#8010d8" stroke-width="5" stroke-linecap="round"/>
+          <!-- V形腿 -->
+          <line x1="42" y1="56" x2="22" y2="42" stroke="#8010d8" stroke-width="5" stroke-linecap="round"/>
+          <line x1="22" y1="42" x2="14" y2="58" stroke="#8010d8" stroke-width="4" stroke-linecap="round"/>
+          <ellipse cx="11" cy="60" rx="6" ry="3" fill="#f5c090"/>
+          <!-- 双臂转向右（同侧头）-->
+          <line x1="50" y1="38" x2="70" y2="28" stroke="#8010d8" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="72" cy="27" r="4" fill="#f5c090"/>
+          <circle cx="76" cy="25" r="4" fill="#f5c090"/>
+          <!-- 旋转弧（从左到右）-->
+          <path d="M26 34 Q48 20 70 28" stroke="#c040f0" fill="none" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <polygon points="24,34 28,30 30,36" fill="#c040f0"/>
+          <text x="4" y="80" font-size="7.5" fill="#8010d8" font-family="DM Mono,monospace">慢速 侧腰</text>
+        </svg>
+      </div>
+      <div class="ei">
+        <h4>俄罗斯转体</h4>
+        <div class="s">3组 × 20次</div>
+        <div class="tip">不加重，慢速左右转动，感受侧腰收缩</div>
+      </div>
+      <div class="mu mc">侧腰</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== SUN 休息 ===== -->
+<div class="panel" id="p-sun">
+  <div class="ph"><h2>周日 · 完全休息</h2><div class="bdg bx">恢复日</div></div>
+  <div class="rb">
+    <div class="ico">😴</div><h3>今天什么都不做</h3>
+    <p>完全休息是训练的一部分，<br>肌肉在休息时生长，不在训练时。</p>
+    <div class="ris">
+      <div class="ri">🛌 保证7–8小时睡眠，皮质醇降低，腹部才能瘦</div>
+      <div class="ri">🍳 正常饮食，蛋白质不减，主食减半</div>
+      <div class="ri">📱 轻度拉伸可以，不算运动</div>
+      <div class="ri">⚡ 下周一重新开始，状态会更好</div>
+    </div>
+  </div>
+</div>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js');
+  });
+}
+function sw(day, el) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('s-run','s-str','s-rest'));
+  document.getElementById('p-' + day).classList.add('on');
+  const types = {mon:'s-str',tue:'s-run',wed:'s-rest',thu:'s-str',fri:'s-run',sat:'s-str',sun:'s-rest'};
+  el.classList.add(types[day]);
+}
+</script>
+</body>
+</html>
