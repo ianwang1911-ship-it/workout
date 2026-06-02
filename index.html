@@ -1002,7 +1002,15 @@ function renderTabs(){
   dOrder.forEach(function(key,i){
     var t=document.createElement('div');
     t.className='tab'+(i===cur?' active':'')+(ci[key]?' done':'')+(swapA===i?' swap-sel':swapA!==null&&swapA!==i?' swap-hint':'');
-    t.innerHTML='<div class="tn">'+NAMES[i]+'</div><div class="td">'+wDates[i].getMonth()+1+'/'+wDates[i].getDate()+'</div><div class="tdot"></div>';
+    var dayType=TYPES[dOrder[i]];
+    var typeLabel=dayType==='str'?'重训':dayType==='run'?'有氧':'休息';
+    var typeColor=dayType==='str'?'#e0540a':dayType==='run'?'#0a6030':'#888';
+    t.innerHTML='<div class="tn">'+NAMES[i]+'</div>'
+      +'<div class="td">'+typeLabel+'</div>'
+      +'<div class="tdot"></div>';
+    t.querySelector('.td').style.color=typeColor;
+    t.querySelector('.td').style.fontSize='9px';
+    t.querySelector('.td').style.marginTop='1px';
     t.addEventListener('click',function(){onTabClick(i);});
     t.addEventListener('pointerdown',function(){_lpTimer=setTimeout(function(){_lpTimer=null;onTabLong(i);},500);});
     t.addEventListener('pointerup',function(){if(_lpTimer){clearTimeout(_lpTimer);_lpTimer=null;}});
