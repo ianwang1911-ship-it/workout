@@ -632,7 +632,6 @@ var _ciKey=null,_ciBtn=null;
 
 // INIT
 window.addEventListener('DOMContentLoaded',function(){
-  localStorage.removeItem('sw_setup');localStorage.removeItem('sw_cfg');localStorage.removeItem('sw_ci');localStorage.removeItem('sw_all');localStorage.removeItem('sw_ex');localStorage.removeItem('sw_del');localStorage.removeItem('sw_log');
   calcDates();
   cur=(new Date().getDay()||7)-1;
   if(!localStorage.getItem('sw_setup')){obPrev();return;}
