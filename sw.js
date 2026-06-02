@@ -1,4 +1,4 @@
-const CACHE = 'selfweight-v2';
+const CACHE = 'selfweight-v3';
 const FILES = [
   './',
   './index.html',
